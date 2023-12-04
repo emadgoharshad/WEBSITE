@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="content">
+  <div class="border_div">
+    <div class="box">
+      <div class="b_row">
+        <div class="c_image">
+          <img src="{{ avatar.url }}" alt="">
+        </div>
+        <div class="c_artist">
+          @ <a href="{% url 'users:profile' user_id=id  %}">{{ username }}</a>
+        </div>
+      </div>
+      
+      <div class="main">
+       <form action="{% url 'video:subs' pk=id %}" method="POST">
+          {% csrf_token %}
+        <ul class="ul_info">
+          <li>
+            {% if user.is_authenticated %}
+              {%  if is_self == False %}
+                  {% if is_sub %}
+                  <span><button type="submit"
+                    type="button" class="btn btn-secondary">UnSubscribed</button></span>
+                  {% else %}
+                  <span><button type="submit"
+                    type="button" class="btn btn-danger">Subscribe</button></span>
+                  {% endif %}
+              {% endif %}
+
+            {% endif %}
+          </li>
+          <li>Email : {{email}}</li>
+          <li>Subscribes : {{ count_subs }} </li>
+          <li>Videos : {{ count_video }} </li>
+        </ul>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
